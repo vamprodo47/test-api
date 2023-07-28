@@ -31,4 +31,12 @@ export class WalletsService {
       throw new Error(error);
     }
   }
+
+  async getBalance(id: string): Promise<Wallet> {
+    try {
+      return await this.walletRepository.findOneBy({ id });
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
 }
