@@ -7,8 +7,8 @@ export class WalletsController {
   constructor(private readonly walletsService: WalletsService) {}
 
   @Post()
-  async registerWallet(@Body() initialbalance: string): Promise<Wallet> {
-    const wallet = this.walletsService.registerWallet(initialbalance);
+  async registerWallet(@Body('balance') balance: string): Promise<Wallet> {
+    const wallet = await this.walletsService.registerWallet(balance);
 
     return wallet;
   }

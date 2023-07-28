@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { randomUUID } from 'crypto';
 import { Repository } from 'typeorm';
 import { Wallet } from './wallets.entity';
 
@@ -18,16 +19,16 @@ export class WalletsService {
     }
   }
 
-  async registerWallet(initialBalance: string): Promise<Wallet> {
+  async registerWallet(balance: string): Promise<Wallet> {
     try {
       const wallet: Wallet = {
-        id: self.crypto.randomUUID(),
-        balance: Number(initialBalance),
+        id: randomUUID(),
+        balance: Number(balance),
       };
 
-      return this.walletRepository.save(wallet);
+      return await this.walletRepository.save(wallet);
     } catch (error) {
-      throw new Error('Failed to get wallets data.');
+      throw new Error(error);
     }
   }
 }
