@@ -22,8 +22,7 @@ export class WalletsService {
     try {
       const wallet: Wallet = {
         id: self.crypto.randomUUID(),
-        address: 'tmpAddress',
-        balance: BigInt(initialBalance),
+        balance: Number(initialBalance),
       };
 
       return this.walletRepository.save(wallet);

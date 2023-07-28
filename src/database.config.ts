@@ -9,5 +9,5 @@ export const databaseConfig: TypeOrmModuleOptions = {
   database: 'mysql',
   synchronize: true,
   logging: true,
-  entities: [__dirname + '/../**/*.entity.{js,ts}'],
+  autoLoadEntities: true,
 };
