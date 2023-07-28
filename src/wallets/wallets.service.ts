@@ -11,9 +11,9 @@ export class WalletsService {
     private readonly walletRepository: Repository<Wallet>,
   ) {}
 
-  async getWalletsData(): Promise<Wallet[]> {
+  async getWallets(): Promise<Wallet[]> {
     try {
-      return this.walletRepository.find();
+      return await this.walletRepository.find();
     } catch (error) {
       throw new Error('Failed to get wallets data');
     }
