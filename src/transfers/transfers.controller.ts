@@ -26,8 +26,10 @@ export class TransfersController {
   @Get('/wallet/:walletId')
   async findTransfersById(
     @Param('walletId') walletId: string,
-    @Query() findTransfersByIdDto: FindTransfersByIdDto,
+    @Query('offset') offset: number,
+    @Query('maxCount') maxCount: number,
   ): Promise<Transfer[]> {
+    const findTransfersByIdDto: FindTransfersByIdDto = { offset, maxCount };
     const requestedTransfer = await this.transfersService.findTransfersById(
       walletId,
       findTransfersByIdDto,
@@ -39,8 +41,10 @@ export class TransfersController {
   @Post('/wallet/:walletId')
   async createTransfer(
     @Param('walletId') walletId: string,
-    @Body() createTransferDto: CreateTransferDto,
+    @Body('type') type: string,
+    @Body('amount') amount: number,
   ): Promise<Transfer> {
+    const createTransferDto: CreateTransferDto = { type, amount };
     const requestedTransfer = await this.transfersService.createTransfer(
       walletId,
       createTransferDto,
