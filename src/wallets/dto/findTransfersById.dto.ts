@@ -1,4 +1,4 @@
-export class GetTransfersByIdDto {
+export class FindTransfersByIdDto {
   offset: number;
   maxCount: number;
 }

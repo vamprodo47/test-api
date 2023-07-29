@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Transfer } from './transfers.entity';
 import { Repository } from 'typeorm';
 import { RequestTransferDto } from 'src/wallets/dto/requestTransfer.dto';
-import { GetTransfersByIdDto } from 'src/wallets/dto/getTransfersById.dto';
+import { FindTransfersByIdDto } from 'src/wallets/dto/findTransfersById.dto';
 
 @Injectable()
 export class TransfersService {
@@ -39,15 +39,15 @@ export class TransfersService {
     }
   }
 
-  async getTransfersById(
+  async findTransfersById(
     walletId: string,
-    getTransfersByIdDto: GetTransfersByIdDto,
+    findTransfersByIdDto: FindTransfersByIdDto,
   ): Promise<Transfer[]> {
     try {
       const transfers = await this.transferRepository.find({
         where: { walletId },
-        skip: getTransfersByIdDto.offset,
-        take: getTransfersByIdDto.maxCount,
+        skip: findTransfersByIdDto.offset,
+        take: findTransfersByIdDto.maxCount,
       });
 
       return transfers;
