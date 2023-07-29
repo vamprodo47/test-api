@@ -6,6 +6,9 @@ import { Repository, DataSource } from 'typeorm';
 import { CreateTransferDto } from './dto/createTransfer.dto';
 import { FindTransfersByIdDto } from './dto/findTransfersById.dto';
 
+type TransferType = '입금' | '출금';
+type StatusType = '처리중' | '처리됨;';
+
 @Injectable()
 export class TransfersService {
   constructor(
@@ -29,6 +32,14 @@ export class TransfersService {
     createTransferDto: CreateTransferDto,
   ): Promise<Transfer> {
     try {
+      const isExistedWallet = await this.walletRepository.findOneBy({
+        id: walletId,
+      });
+
+      if (!isExistedWallet) {
+        throw new Error('존재하지 않는 지갑입니다.');
+      }
+
       const transfer: Partial<Transfer> = {
         walletId,
         type: createTransferDto.type,
@@ -39,7 +50,7 @@ export class TransfersService {
 
       return requestedTransfer;
     } catch (error) {
-      throw new Error('Failed to request Transfer');
+      throw new Error(error);
     }
   }
 

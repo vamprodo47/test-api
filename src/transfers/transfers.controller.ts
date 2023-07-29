@@ -11,7 +11,6 @@ import { TransfersService } from './transfers.service';
 import { Transfer } from '../entities/transfers/transfers.entity';
 import { CreateTransferDto } from './dto/createTransfer.dto';
 import { FindTransfersByIdDto } from './dto/findTransfersById.dto';
-import { Wallet } from 'src/entities/wallets/wallets.entity';
 
 @Controller('transfers')
 export class TransfersController {
