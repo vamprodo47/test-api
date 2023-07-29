@@ -12,6 +12,12 @@ This is a deposit and withdrawal API.
 $ npm install
 ```
 
+### mySQL 실행
+
+```
+  docker-compose up -d
+```
+
 ### Running the app
 
 ```bash
