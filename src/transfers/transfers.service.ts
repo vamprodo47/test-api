@@ -2,8 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Transfer } from './transfers.entity';
 import { Repository } from 'typeorm';
-import { RequestTransferDto } from 'src/wallets/dto/requestTransfer.dto';
-import { FindTransfersByIdDto } from 'src/wallets/dto/findTransfersById.dto';
+import { CreateTransferDto } from './dto/createTransfer.dto';
+import { FindTransfersByIdDto } from './dto/findTransfersById.dto';
 
 @Injectable()
 export class TransfersService {
@@ -20,15 +20,15 @@ export class TransfersService {
     }
   }
 
-  async requestTransfer(
+  async createTransfer(
     walletId: string,
-    requestTransferDto: RequestTransferDto,
+    createTransferDto: CreateTransferDto,
   ): Promise<Transfer> {
     try {
       const transfer: Partial<Transfer> = {
         walletId,
-        type: requestTransferDto.type,
-        amount: requestTransferDto.amount,
+        type: createTransferDto.type,
+        amount: createTransferDto.amount,
         status: '처리중',
       };
       const requestedTransfer = await this.transferRepository.save(transfer);
