@@ -8,9 +8,10 @@ import {
   Query,
 } from '@nestjs/common';
 import { TransfersService } from './transfers.service';
-import { Transfer } from './transfers.entity';
+import { Transfer } from '../entities/transfers/transfers.entity';
 import { CreateTransferDto } from './dto/createTransfer.dto';
 import { FindTransfersByIdDto } from './dto/findTransfersById.dto';
+import { Wallet } from 'src/entities/wallets/wallets.entity';
 
 @Controller('transfers')
 export class TransfersController {
@@ -50,5 +51,9 @@ export class TransfersController {
   }
 
   @Patch()
-  async patchTransfers(): Promise<void> {}
+  async patchTransfers(): Promise<Transfer[]> {
+    const patchedTransfers = await this.transfersService.patchTransfers();
+
+    return patchedTransfers;
+  }
 }

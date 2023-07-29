@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Body, Param } from '@nestjs/common';
 import { WalletsService } from './wallets.service';
 
-import { Wallet } from './wallets.entity';
+import { Wallet } from '../entities/wallets/wallets.entity';
 
 @Controller('wallets')
 export class WalletsController {
