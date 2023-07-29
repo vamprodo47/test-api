@@ -2,7 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Transfer } from './transfers.entity';
 import { Repository } from 'typeorm';
-import { RequestTransferDto } from 'src/wallets/dto/request-transfer.dto';
+import { RequestTransferDto } from 'src/wallets/dto/requestTransfer.dto';
+import { GetTransfersByIdDto } from 'src/wallets/dto/getTransfersById.dto';
 
 @Injectable()
 export class TransfersService {
@@ -33,6 +34,23 @@ export class TransfersService {
       const requestedTransfer = await this.transferRepository.save(transfer);
 
       return requestedTransfer;
+    } catch (error) {
+      throw new Error('Failed to request Transfer');
+    }
+  }
+
+  async getTransfersById(
+    walletId: string,
+    getTransfersByIdDto: GetTransfersByIdDto,
+  ): Promise<Transfer[]> {
+    try {
+      const transfers = await this.transferRepository.find({
+        where: { walletId },
+        skip: getTransfersByIdDto.offset,
+        take: getTransfersByIdDto.maxCount,
+      });
+
+      return transfers;
     } catch (error) {
       throw new Error('Failed to request Transfer');
     }

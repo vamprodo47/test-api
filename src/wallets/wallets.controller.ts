@@ -3,8 +3,8 @@ import { WalletsService } from './wallets.service';
 import { TransfersService } from 'src/transfers/transfers.service';
 import { Wallet } from './wallets.entity';
 import { Transfer } from 'src/transfers/transfers.entity';
-import { RequestTransferDto } from './dto/request-transfer.dto';
-import { GetTransfersDto } from './dto/get-transfer.dto';
+import { RequestTransferDto } from './dto/requestTransfer.dto';
+import { GetTransfersByIdDto } from './dto/getTransfersById.dto';
 
 @Controller('wallets')
 export class WalletsController {
@@ -50,6 +50,13 @@ export class WalletsController {
   @Get('/:id/transfers')
   async getTransfersById(
     @Param('id') id: string,
-    @Body() getTransfersDto: GetTransfersDto,
-  ): Promise<void> {}
+    @Body() getTransfersByIdDto: GetTransfersByIdDto,
+  ): Promise<Transfer[]> {
+    const requestedTransfer = await this.transfersService.getTransfersById(
+      id,
+      getTransfersByIdDto,
+    );
+
+    return requestedTransfer;
+  }
 }
